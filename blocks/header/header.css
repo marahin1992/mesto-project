@@ -2,17 +2,13 @@
   display: flex;
   justify-content: space-between;
   box-sizing: border-box;
-  padding: 45px 0 78px;
+  padding: 45px 48px 41px;
+  border-bottom: 1px solid #545454;
 }
 
-@media all and (max-width: 1279px) {
-  .header {
-    padding: 28px 0 48px;
-  }
-}
 
 @media all and (max-width: 767px) {
   .header {
-    padding: 25px 0 70px;
+    padding: 28px 27px 32px;
   }
 }

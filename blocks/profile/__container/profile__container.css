@@ -1,0 +1,12 @@
+.profile__container {
+  display: flex;
+  align-items: end;
+  column-gap: 18px;
+}
+
+@media all and (max-width: 767px) {
+  .profile__container {
+    column-gap: 10px;
+    padding-left: 34px;
+  }
+}

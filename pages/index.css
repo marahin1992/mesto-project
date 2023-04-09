@@ -4,16 +4,33 @@
 
 @import url(../blocks/page/page.css);
 @import url(../blocks/page/__container/page__container.css);
+
 /*styles for header*/
 @import url(../blocks/header/header.css);
 @import url(../blocks/header/__logo/header__logo.css);
 
+@import url(../blocks/content/content.css);
+
+/*styles for profile*/
 @import url(../blocks/profile/profile.css);
 @import url(../blocks/profile/__avatar/profile__avatar.css);
+@import url(../blocks/profile/__add-button/profile__add-button.css);
+@import url(../blocks/profile/__add-button-img/profile__add-button-img.css);
+@import url(../blocks/profile/__container/profile__container.css);
+@import url(../blocks/profile/__edit-button/profile__edit-button.css);
+@import url(../blocks/profile/__edit-button-img/profile__edit-button-img.css);
+@import url(../blocks/profile/__info/profile__info.css);
+@import url(../blocks/profile/__name/profile__name.css);
+@import url(../blocks/profile/__status/profile__status.css);
 
+/*styles for cards*/
+@import url(../blocks/cards/cards.css);
+@import url(../blocks/card/card.css);
+@import url(../blocks/card/__image/card__image.css);
+@import url(../blocks/card/__container/card__container.css);
+@import url(../blocks/card/__title/card__title.css);
+@import url(../blocks/card/__like/card__like.css);
 
-
-@import url(../blocks/content/content.css);
 
 
 
@@ -21,8 +38,25 @@
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__coopyright/footer__coopyright.css);
 
+/*edit-form*/
+@import url(../blocks/edit-form/edit-form.css);
+@import url(../blocks/edit-form/__area/edit-form__area.css);
+@import url(../blocks/edit-form/__close-button/edit-form__close-button.css);
+@import url(../blocks/edit-form/__input/edit-form__input.css);
+@import url(../blocks/edit-form/__save-button/edit-form__save-button.css);
+@import url(../blocks/edit-form/__title/edit-form__title.css);
+
+
+/*modificators*/
+@import url(../blocks/card/__like/_liked/card__like_liked.css);
+
 @import url();
 @import url();
 @import url();
 @import url();
 @import url();
+
+/*div,section,nav,a,main,footer,header,article {
+  outline: 1px solid red;
+}
+

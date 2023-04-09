@@ -1,0 +1,11 @@
+.profile__info {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+}
+
+@media all and (max-width: 767px) {
+  .profile__info {
+    padding: 26px 0 34px;
+  }
+}
