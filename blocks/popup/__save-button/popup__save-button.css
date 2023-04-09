@@ -1,4 +1,4 @@
-.edit-form__save-button {
+.popup__save-button {
   border-radius: 0;
   border: none;
   background-color: #000;
@@ -14,17 +14,18 @@
   font-size: 18px;
   line-height: 22px;
   text-align: center;
-  margin-top: 18px;
+  margin-top: 38px;
 }
 
-.edit-form__save-button:hover {
+.popup__save-button:hover {
   opacity: 0.8;
 }
 
 @media all and (max-width: 767px) {
-  .edit-form__save-button {
+  .popup__save-button {
     font-size: 14px;
     line-height: 17px;
     height: 46px;
+    margin-top: 36px;
   }
 }

@@ -1,4 +1,4 @@
-.edit-form__input {
+.popup__input {
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 0;
@@ -7,31 +7,33 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
+  background-color: #fff;
+  margin: 10px 0;
 }
 
-.edit-form__input:focus {
+.popup__input:focus {
   outline: blueviolet solid 2px;
 }
 
-.edit-form__input::placeholder {
+.popup__input::placeholder {
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
 }
 
-.edit-form__input::-ms-input-placeholder {
+.popup__input::-ms-input-placeholder {
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
 }
 
-.edit-form__input::-webkit-input-placeholder {
+.popup__input::-webkit-input-placeholder {
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
 }
 
-.edit-form__input::-moz-placeholder {
+.popup__input::-moz-placeholder {
   font-style: normal;
   font-weight: 400;
   font-size: 14px;

@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   box-sizing: border-box;
-  padding: 45px 48px 41px;
+  padding: 45px 0px 41px;
   border-bottom: 1px solid #545454;
 }
 

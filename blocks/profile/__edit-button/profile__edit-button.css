@@ -9,6 +9,7 @@
   transition-property: opacity;
   transition-duration: 0.5s;
   margin-bottom: 8px;
+  display: flex;
 }
 
 .profile__edit-button:hover {
@@ -17,6 +18,8 @@
 
 @media all and (max-width: 767px) {
   .profile__edit-button {
-    margin-bottom: 5px;
+    margin-bottom: 7px;
+    width: 18px;
+    height: 18px;
   }
 }
