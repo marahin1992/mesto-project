@@ -9,6 +9,7 @@
   transition-property: opacity;
   transition-duration: 0.5s;
   justify-self: end;
+  padding: 0;
 }
 
 .profile__add-button:hover {

@@ -10,6 +10,7 @@
   transition-duration: 0.5s;
   margin-bottom: 8px;
   display: flex;
+  padding: 0;
 }
 
 .profile__edit-button:hover {
