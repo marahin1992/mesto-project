@@ -11,7 +11,7 @@
 <body class="page">
   <div class="page__container">
     <header class="header">
-      <img class="header__logo" src="./images/logo.svg" alt="">
+      <img class="header__logo" src="./images/logo.svg" alt="Место">
     </header>
     <main class="content">
       <section class="profile">
@@ -19,57 +19,53 @@
         <div class="profile__info">
           <div class="profile__container">
             <h1 class="profile__name">Андрей Марахин</h1>
-            <button class="profile__edit-button">
-              <img class="profile__edit-button-img" src="./images/edit-button.svg" alt="редактировать профиль">
-            </button>
+            <button class="profile__edit-button" type="button" aria-label="Редактировать профиль"></button>
           </div>
           <p class="profile__status">Человек-разгадка</p>
         </div>
-        <button class="profile__add-button">
-          <img class="profile__add-button-img" src="./images/add-button.svg" alt="добавить профиль">
-        </button>
+        <button class="profile__add-button" type="button" aria-label="Добавить профиль"></button>
       </section>
       <section class="cards" aria-label="Карточки">
         <article class="card">
           <img class="card__image" src="./images/1.jpg" alt="Закат">
           <div class="card__container">
             <h2 class="card__title">Разветье</h2>
-            <button class="card__like"></button>
+            <button class="card__like" type="button"></button>
           </div>
         </article>
         <article class="card">
           <img class="card__image" src="./images/2.jpg" alt="Водоём">
           <div class="card__container">
             <h2 class="card__title">Железногорское водохранилище</h2>
-            <button class="card__like card__like_liked"></button>
+            <button class="card__like card__like_liked" type="button"></button>
           </div>
         </article>
         <article class="card">
           <img class="card__image" src="./images/3.jpg" alt="Снежная дорога">
           <div class="card__container">
             <h2 class="card__title">Берёзовая улица</h2>
-            <button class="card__like"></button>
+            <button class="card__like" type="button"></button>
           </div>
         </article>
         <article class="card">
           <img class="card__image" src="./images/4.jpg" alt="Пёс на холме">
           <div class="card__container">
             <h2 class="card__title">Ледяной холм</h2>
-            <button class="card__like"></button>
+            <button class="card__like" type="button"></button>
           </div>
         </article>
         <article class="card">
           <img class="card__image" src="./images/5.jpg" alt="Пёс в роще">
           <div class="card__container">
             <h2 class="card__title">Урочище Роза</h2>
-            <button class="card__like"></button>
+            <button class="card__like" type="button"></button>
           </div>
         </article>
         <article class="card">
           <img class="card__image" src="./images/6.jpg" alt="Ноги на фоне заката">
           <div class="card__container">
             <h2 class="card__title">Карманово</h2>
-            <button class="card__like"></button>
+            <button class="card__like" type="button"></button>
           </div>
         </article>
       </section>
@@ -78,14 +74,16 @@
       <p class="footer__coopyright">&copy;&nbsp;2023 Mesto Russia</p>
     </footer>
   </div>
-  <div class="popup">
-    <form class="popup__container">
-      <p class="popup__title">Редактировать профиль</p>
-      <input class="popup__input" type="text" placeholder="Жак-Ив Кусто">
-      <input class="popup__input" type="text" placeholder="Исследователь океана">
-      <button class="popup__save-button">Сохранить</button>
-      <button class="popup__close-button"></button>
-    </form>
+  <div class="popup popup_opened">
+    <div class="popup__container">
+      <h3 class="popup__title">Редактировать профиль</h3>
+      <form class="popup__form" name="editform">
+        <input class="popup__input" type="text" placeholder="Жак-Ив Кусто" name="profilename">
+        <input class="popup__input" type="text" placeholder="Исследователь океана" name="profilestatus">
+        <button class="popup__save-button">Сохранить</button>
+      </form>
+      <button class="popup__close-button" type="button"></button>
+    </div>
   </div>  
 </body>
 </html>

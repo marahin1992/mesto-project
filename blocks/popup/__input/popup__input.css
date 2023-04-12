@@ -9,33 +9,9 @@
   line-height: 17px;
   background-color: #fff;
   margin: 10px 0;
+  color: #000;
 }
 
 .popup__input:focus {
-  outline: blueviolet solid 2px;
-}
-
-.popup__input::placeholder {
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 17px;
-}
-
-.popup__input::-ms-input-placeholder {
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 17px;
-}
-
-.popup__input::-webkit-input-placeholder {
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 17px;
-}
-
-.popup__input::-moz-placeholder {
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 17px;
+  outline-color: blueviolet;
 }

@@ -1,6 +1,8 @@
 .header__logo {
   width: 142px;
   height: 33px;
+  object-fit: contain;
+  object-position: center;
 }
 
 @media all and (max-width: 767px) {

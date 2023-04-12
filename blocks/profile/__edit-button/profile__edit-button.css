@@ -2,6 +2,7 @@
   border-radius: 0;
   border: 1px solid #fff;
   background-color: #000;
+  min-width: 24px;
   width: 24px;
   height: 24px;
   box-sizing: border-box;
@@ -11,6 +12,10 @@
   margin-bottom: 8px;
   display: flex;
   padding: 0;
+  background-image: url(../../../images/edit-button.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 10px;
 }
 
 .profile__edit-button:hover {
@@ -20,7 +25,9 @@
 @media all and (max-width: 767px) {
   .profile__edit-button {
     margin-bottom: 7px;
+    min-width: 18px;
     width: 18px;
     height: 18px;
+    background-size: 7.5px;
   }
 }

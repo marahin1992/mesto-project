@@ -10,5 +10,6 @@
   .profile__container {
     column-gap: 10px;
     padding-left: 29px;
+    justify-content: center;
   }
 }
