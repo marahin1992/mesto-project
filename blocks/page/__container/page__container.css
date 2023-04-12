@@ -2,6 +2,7 @@
   max-width: calc(880px + (48px*2));
   min-width: 320px;
   width: 100%;
+  min-height: 100vh;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
