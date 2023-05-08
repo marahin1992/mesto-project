@@ -26,64 +26,52 @@
         <button class="profile__add-button" type="button" aria-label="Добавить профиль"></button>
       </section>
       <section class="cards" aria-label="Карточки">
-        <article class="card">
-          <img class="card__image" src="./images/1.jpg" alt="Закат">
-          <div class="card__container">
-            <h2 class="card__title">Разветье</h2>
-            <button class="card__like" type="button"></button>
-          </div>
-        </article>
-        <article class="card">
-          <img class="card__image" src="./images/2.jpg" alt="Водоём">
-          <div class="card__container">
-            <h2 class="card__title">Железногорское водохранилище</h2>
-            <button class="card__like card__like_liked" type="button"></button>
-          </div>
-        </article>
-        <article class="card">
-          <img class="card__image" src="./images/3.jpg" alt="Снежная дорога">
-          <div class="card__container">
-            <h2 class="card__title">Берёзовая улица</h2>
-            <button class="card__like" type="button"></button>
-          </div>
-        </article>
-        <article class="card">
-          <img class="card__image" src="./images/4.jpg" alt="Пёс на холме">
-          <div class="card__container">
-            <h2 class="card__title">Ледяной холм</h2>
-            <button class="card__like" type="button"></button>
-          </div>
-        </article>
-        <article class="card">
-          <img class="card__image" src="./images/5.jpg" alt="Пёс в роще">
-          <div class="card__container">
-            <h2 class="card__title">Урочище Роза</h2>
-            <button class="card__like" type="button"></button>
-          </div>
-        </article>
-        <article class="card">
-          <img class="card__image" src="./images/6.jpg" alt="Ноги на фоне заката">
-          <div class="card__container">
-            <h2 class="card__title">Карманово</h2>
-            <button class="card__like" type="button"></button>
-          </div>
-        </article>
       </section>
     </main>
     <footer class="footer">
       <p class="footer__coopyright">&copy;&nbsp;2023 Mesto Russia</p>
     </footer>
   </div>
-  <div class="popup">
+  <div class="popup popup_profile">
     <div class="popup__container">
       <h3 class="popup__title">Редактировать профиль</h3>
       <form class="popup__form" name="editform">
         <input class="popup__input" type="text" required placeholder="Жак-Ив Кусто" name="profilename">
-        <input class="popup__input" type="text" required placeholder="Исследователь океана" name="profilestatus">
+        <input class="popup__input" type="text" required placeholder="Исследователь океана" name="profilejob">
         <button class="popup__save-button">Сохранить</button>
       </form>
       <button class="popup__close-button" type="button"></button>
     </div>
-  </div>  
+  </div>
+
+  <div class="popup popup_mesto">
+    <div class="popup__container">
+      <h3 class="popup__title">Новое место</h3>
+      <form class="popup__form" name="editform">
+        <input class="popup__input" type="text" required placeholder="Название" name="cardname">
+        <input class="popup__input" type="text" required placeholder="Ссылка на картинку" name="cardlink">
+        <button class="popup__save-button">Создать</button>
+      </form>
+      <button class="popup__close-button" type="button"></button>
+    </div>
+  </div>
+  <div class="popup popup_type_image">
+    <div class="popup__image-container">
+      <h3 class="popup__image-title">Новое место</h3>
+      <img class="popup__image" src="./images/5.jpg">
+      <button class="popup__close-button" type="button"></button>
+    </div>
+  </div>
+  <template id="card-template">
+    <article class="card">
+      <img class="card__image">
+      <button class="card__delete"></button>
+      <div class="card__container">
+        <h2 class="card__title"></h2>
+        <button class="card__like" type="button"></button>
+      </div>
+    </article>
+  </template>
+  <script src="./script.js"></script>  
 </body>
 </html>
