@@ -58,9 +58,13 @@ function popUpImageOpen(imgObj) {
 //Закрытие попапа картинки
 closeButtonImage.addEventListener('click', function() {
   closePopup(popUpImage);
-  popImage.src = '';
-  popImageTitle.textContent = '';
-  popImage.alt = 'Фотография';
+  setTimeout(() => {
+    popImage.src = '';
+    popImageTitle.textContent = '';
+    popImage.alt = 'Фотография';
+  },
+  1000
+  );
 });
 //Функция редактирование профиля
 function handleFormSubmitProfile(evt) {
