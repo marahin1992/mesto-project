@@ -1,6 +1,6 @@
 .profile__container {
   display: flex;
-  align-items: end;
+  align-items: flex-end;
   column-gap: 18px;
   box-sizing: border-box;
   overflow: hidden;

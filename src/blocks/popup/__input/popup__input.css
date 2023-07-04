@@ -13,5 +13,6 @@
 }
 
 .popup__input:focus {
-  outline-color: blueviolet;
+  outline-color: yellow;
 }
+

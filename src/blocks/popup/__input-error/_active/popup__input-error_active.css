@@ -1,0 +1,8 @@
+.popup__input-error_active {
+  display: block;
+  position: absolute;
+  top: 49px;
+  left: 0px;
+  overflow: visible;
+  z-index: 1;
+}
