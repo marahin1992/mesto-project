@@ -2,20 +2,16 @@ import './pages/index.css';
 
 import { initialCards } from './components/cards.js';
 
-import {
-  addCards,
-  handleCardsEvents
-} from './components/card.js';
+import { addCards } from './components/card.js';
 
 import { enableValidation } from './components/validate.js';
 
-import { disableButton } from './components/utils';
-
 import {
-  closePopup,
   openProfilePopUp,
   openPopUpMesto,
 } from './components/modal.js';
+
+import { closePopup } from './components/utils.js'
 
 //Константы попапа картинки
 export const popUpImage = document.querySelector('.popup_type_image');
@@ -31,17 +27,26 @@ const addButton = profile.querySelector('.profile__add-button');//Кнопка �
 //Константы попапа редактирования профиля
 export const popUpProfile = document.querySelector('.popup_type_profile');
 export const closeButtonProfile = popUpProfile.querySelector('.popup__close-button');
-const formElementProfile = popUpProfile.querySelector('.popup__form');
+const formElementProfile = document.forms["profile-form"];
 export const nameInput = formElementProfile.querySelector('input[name="profilename"]');
 export const jobInput = formElementProfile.querySelector('input[name="profilejob"]');
 //Константы попапа добавления места
 export const popUpMesto = document.querySelector('.popup_type_mesto');
 export const closeButtonMesto = popUpMesto.querySelector('.popup__close-button');
-const formElementMesto = popUpMesto.querySelector('.popup__form');
+const formElementMesto = document.forms["card-form"];
 const titleInput = formElementMesto.querySelector('input[name="cardname"]');
 const linkInput = formElementMesto.querySelector('input[name="cardlink"]');
 //Константы карточек
 const cardContainer = document.querySelector('.cards');
+
+export const validateSettings = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__save-button',
+    inactiveButtonClass: 'popup__save-button_disabled',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__input-error_active'
+  };
 
 //Открытие попапа редактирования профиля
 editButton.addEventListener('click', openProfilePopUp);
@@ -49,15 +54,13 @@ editButton.addEventListener('click', openProfilePopUp);
 //Открытие попапа добавления места
 addButton.addEventListener('click', openPopUpMesto);
 
-
-//Закрытие попапа картинки
-//closeButtonImage.addEventListener('click', closePopUpImage);
 //Функция редактирование профиля
 function handleFormSubmitProfile(evt) {
     evt.preventDefault();     
     profileName.textContent = nameInput.value;
     profileJob.textContent = jobInput.value;
     closePopup(popUpProfile);
+    evt.target.reset();
 }
 //Обаботчик события редактирования профиля
 formElementProfile.addEventListener('submit', handleFormSubmitProfile); 
@@ -75,23 +78,13 @@ function handleFormSubmitMesto(evt) {
     link: linkInput.value
     };
   cardContainer.prepend(addCards(initialCard));
-  popUpMesto.classList.remove('popup_opened');
+  closePopup(popUpMesto);
   evt.target.reset();
-  disableButton(evt.target.querySelector('.popup__save-button'));
+  //disableButton(evt.submitter, validateSettings);
 }
 //Отправка карточки из формы
 formElementMesto.addEventListener('submit', handleFormSubmitMesto);
 
 //Организуем вылидацию форм
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__save-button',
-  inactiveButtonClass: 'popup__save-button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_active'
-});
+enableValidation(validateSettings);
 
-
-//Обработчик событий карточки
-document.querySelector('.cards').addEventListener('click', handleCardsEvents);
