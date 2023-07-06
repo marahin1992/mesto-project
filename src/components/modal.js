@@ -13,10 +13,7 @@ import {
 
 import { hideInputError } from './validate.js'
 
-import { 
-  openPopup,
-  closePopup,
- } from './utils.js';
+import { openPopup } from './utils.js';
 
 
  
@@ -38,36 +35,12 @@ export function openPopUpMesto() {
   openPopup(popUpMesto);
 }
 
-//Функция сброса попапа картинки
-function resetImagePopUp() {
-  popImage.src = '';
-  popImageTitle.textContent = '';
-  popImage.alt = 'Фотография';
-}
-
-//Функция сброса попапа картинки
-export function closePopUpImage(evt) {
-  //это попап картинки, очищаем его
-  if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close-button') || evt.key === 'Escape'){
-    setTimeout(
-      resetImagePopUp,
-      800
-      );
-      popUpImage.removeEventListener('click', closePopUpImage);
-      document.removeEventListener('keydown', closePopUpImage);
-  }
-  
-}
-
 //Функция открытия попапа картинки
 export function openPopUpImage(imgObj) {
   popImage.src = imgObj.link;
   popImageTitle.textContent = imgObj.name;
   popImage.alt = 'Фотография ' + imgObj.name;
   openPopup(popUpImage);
-  //слушатели для сброса попапа
-  popUpImage.addEventListener('click', closePopUpImage);
-  document.addEventListener('keydown', closePopUpImage);
 }
 
 
