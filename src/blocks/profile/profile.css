@@ -6,6 +6,7 @@
   width: 100%;
   column-gap: 30px;
   padding: 40px 0 51px;
+  position: relative;
 }
 
 @media all and (max-width: 767px) {

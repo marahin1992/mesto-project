@@ -9,6 +9,7 @@ import {
   popUpProfile,
   popUpMesto,
   validateSettings,
+  popUpAvatar,
 } from '../index.js'
 
 import { hideInputError } from './validate.js'
@@ -33,6 +34,10 @@ export function openProfilePopUp() {
 //Функция открытия попапа добавления места
 export function openPopUpMesto() {
   openPopup(popUpMesto);
+}
+
+export function openPopUpAvatar() {
+  openPopup(popUpAvatar)
 }
 
 //Функция открытия попапа картинки
