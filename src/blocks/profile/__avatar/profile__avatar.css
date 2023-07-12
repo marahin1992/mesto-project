@@ -6,14 +6,3 @@
   position: relative;
   cursor: pointer;
 }
-
-.profile__avatar:hover::before {
-  position: absolute;
-  content: "";
-  left: 50%;
-  top: 50%;
-  width: 120px;
-  height: 120px;
-  background-color:rgba(0, 0, 0, 0.5);
-  z-index: 2;
-}

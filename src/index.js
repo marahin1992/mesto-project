@@ -26,6 +26,7 @@ const editButton = profile.querySelector('.profile__edit-button');
 export const profileName = profile.querySelector('.profile__name');
 export const profileJob = profile.querySelector('.profile__status');
 const avatar = profile.querySelector('.profile__avatar');
+const avatarContainer = profile.querySelector('.profile__avatar-container');
 const addButton = profile.querySelector('.profile__add-button');//Кнопка добавления карточки
 export const popUpAvatar = document.querySelector('.popup_type_avatar');
 const formElementAvatar = document.forms["avatar-form"]
@@ -54,6 +55,17 @@ export const validateSettings = {
     inputErrorClass: 'popup__input_type_error',
     errorClass: 'popup__input-error_active'
   };
+
+function setStatusButton({ formElement, text, disabled }) {
+  const buttonElement = formElement.querySelector('.popup__save-button')
+  if (disabled) {
+    buttonElement.disabled = 'disabled';
+  } else {
+    buttonElement.disabled = false;
+  }
+
+  buttonElement.textContent = text;
+}
 
 //Добавление карточек с сервера
 function renderInitialCards(profileID) {
@@ -92,6 +104,7 @@ addButton.addEventListener('click', openPopUpMesto);
 //Функция редактирование профиля
 function handleFormSubmitProfile(evt) {
     evt.preventDefault();
+    setStatusButton({formElement: evt.target, text: 'Сохранение...', disabled: true});
     editProfileData({
       name: nameInput.value,
       about: jobInput.value})
@@ -100,6 +113,10 @@ function handleFormSubmitProfile(evt) {
         profileJob.textContent = profileData.about;
         closePopup(popUpProfile);
         evt.target.reset();
+      })
+      .catch(err => console.log(err))
+      .finally(() => {
+        setStatusButton({formElement: evt.target, text: 'Сохранить', disabled: false});
       })     
     
 }
@@ -116,6 +133,7 @@ formElementProfile.addEventListener('submit', handleFormSubmitProfile);
 //Функция добавления карточки из формы
 function handleFormSubmitMesto(evt) {
   evt.preventDefault();
+  setStatusButton({formElement: evt.target, text: 'Сохранение...', disabled: true});
   addCard({
     name: titleInput.value,
     link: linkInput.value
@@ -125,24 +143,31 @@ function handleFormSubmitMesto(evt) {
       closePopup(popUpMesto);
       evt.target.reset();
     })
-  
-  //disableButton(evt.submitter, validateSettings);
+    .catch(err => console.log(err))
+    .finally(() => {
+    setStatusButton({formElement: evt.target, text: 'Создать', disabled: false});
+    }) 
 }
 //Отправка карточки из формы
 formElementMesto.addEventListener('submit', handleFormSubmitMesto);
 
 //Открытие модального окна редактирования аватара
-avatar.addEventListener('click', openPopUpAvatar)
+avatarContainer.addEventListener('click', openPopUpAvatar)
 
+//Обновление аватара из формы
 function handleFormSubmitAvatar(evt) {
   evt.preventDefault();
+  setStatusButton({formElement: evt.target, text: 'Сохранение...', disabled: true});
   editProfileAvatar({avatar: avatarInput.value})
   .then(data => {
-    console.log(data);
     avatar.src = data.avatar;
     closePopup(popUpAvatar);
     evt.target.reset();
   })
+  .catch(err => console.log(err))
+  .finally(() => {
+  setStatusButton({formElement: evt.target, text: 'Сохранить', disabled: false});
+  }) 
 }
 
 formElementAvatar.addEventListener('submit', handleFormSubmitAvatar);
