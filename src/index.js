@@ -1,7 +1,5 @@
 import './pages/index.css';
 
-import { initialCards } from './components/cards.js';
-
 import { addCards } from './components/card.js';
 
 import { enableValidation } from './components/validate.js';
@@ -12,7 +10,7 @@ import {
   openPopUpAvatar,
 } from './components/modal.js';
 
-import { closePopup } from './components/utils.js'
+import { closePopup, setStatusButton } from './components/utils.js'
 import { getProfileData, getAllCards, editProfileData, addCard, editProfileAvatar } from './components/api';
 
 //Константы попапа картинки
@@ -56,16 +54,8 @@ export const validateSettings = {
     errorClass: 'popup__input-error_active'
   };
 
-function setStatusButton({ formElement, text, disabled }) {
-  const buttonElement = formElement.querySelector('.popup__save-button')
-  if (disabled) {
-    buttonElement.disabled = 'disabled';
-  } else {
-    buttonElement.disabled = false;
-  }
 
-  buttonElement.textContent = text;
-}
+
 
 //Добавление карточек с сервера
 function renderInitialCards(profileID) {
@@ -89,6 +79,7 @@ function pasteProfileData() {
       return profileID = profileData._id;
     })
     .then (renderInitialCards)
+    .catch(err => console.log(err))
     
 }
 
@@ -122,13 +113,6 @@ function handleFormSubmitProfile(evt) {
 }
 //Обаботчик события редактирования профиля
 formElementProfile.addEventListener('submit', handleFormSubmitProfile); 
-
-//Добавление карточек из массива
-/*initialCards.forEach(el => {
-  cardContainer.append(addCards(el));
-});*/
-
-  
 
 //Функция добавления карточки из формы
 function handleFormSubmitMesto(evt) {
@@ -173,10 +157,5 @@ function handleFormSubmitAvatar(evt) {
 formElementAvatar.addEventListener('submit', handleFormSubmitAvatar);
 //Организуем вылидацию форм
 enableValidation(validateSettings);
-
-/*editProfileData({
-  name: 'Андрей Марахин',
-    about: 'Человек-разгадка'
-});*/
 
 
