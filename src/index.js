@@ -1,6 +1,28 @@
 import './pages/index.css';
 
-import { addCards } from './components/card.js';
+import {
+  editButton,
+  profileName,
+  profileJob,
+  avatar,
+  avatarContainer,
+  addButton,
+  popUpAvatar,
+  formElementAvatar,
+  avatarInput,
+  popUpProfile,
+  formElementProfile,
+  nameInput,
+  jobInput,
+  popUpMesto,
+  formElementMesto,
+  titleInput,
+  linkInput,
+  cardContainer,
+  validateSettings,
+} from './components/constants.js'
+
+import { createCard } from './components/card.js';
 
 import { enableValidation } from './components/validate.js';
 
@@ -12,79 +34,33 @@ import {
 
 import { closePopup, setStatusButton } from './components/utils.js'
 import { getProfileData, getAllCards, editProfileData, addCard, editProfileAvatar } from './components/api';
-
-//Константы попапа картинки
-export const popUpImage = document.querySelector('.popup_type_image');
-export const popImage = popUpImage.querySelector('.popup__image');
-export const popImageTitle = popUpImage.querySelector('.popup__image-title');
-export const closeButtonImage = popUpImage.querySelector('.popup__close-button');
-//Константы профиля
-const profile = document.querySelector('.profile');
-const editButton = profile.querySelector('.profile__edit-button');
-export const profileName = profile.querySelector('.profile__name');
-export const profileJob = profile.querySelector('.profile__status');
-const avatar = profile.querySelector('.profile__avatar');
-const avatarContainer = profile.querySelector('.profile__avatar-container');
-const addButton = profile.querySelector('.profile__add-button');//Кнопка добавления карточки
-export const popUpAvatar = document.querySelector('.popup_type_avatar');
-const formElementAvatar = document.forms["avatar-form"]
-const avatarInput = formElementAvatar.querySelector('input[name="avatarlink"]');
-//Константы попапа редактирования профиля
-export const popUpProfile = document.querySelector('.popup_type_profile');
-export const closeButtonProfile = popUpProfile.querySelector('.popup__close-button');
-const formElementProfile = document.forms["profile-form"];
-export const nameInput = formElementProfile.querySelector('input[name="profilename"]');
-export const jobInput = formElementProfile.querySelector('input[name="profilejob"]');
-//Константы попапа добавления места
-export const popUpMesto = document.querySelector('.popup_type_mesto');
-export const closeButtonMesto = popUpMesto.querySelector('.popup__close-button');
-const formElementMesto = document.forms["card-form"];
-const titleInput = formElementMesto.querySelector('input[name="cardname"]');
-const linkInput = formElementMesto.querySelector('input[name="cardlink"]');
-//Константы карточек
-const cardContainer = document.querySelector('.cards');
-export let profileID;
-
-export const validateSettings = {
-    formSelector: '.popup__form',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__save-button',
-    inactiveButtonClass: 'popup__save-button_disabled',
-    inputErrorClass: 'popup__input_type_error',
-    errorClass: 'popup__input-error_active'
-  };
-
-
-
+//Создаём глобальную переменную с ID профиля
+let profileID;
 
 //Добавление карточек с сервера
-function renderInitialCards(profileID) {
-  getAllCards()
-    .then(cardsData => {
+function renderInitialCards(profileID, cardsData) {
       cardsData.forEach(el => {
-        cardContainer.append(addCards(el, profileID));
+        cardContainer.append(createCard(el, profileID));
     })
-  
-  });
 }
 
 
 
-function pasteProfileData() {
-  getProfileData()
-    .then(profileData => {
+function pasteProfileData(profileData) {
       profileName.textContent = profileData.name;
       profileJob.textContent = profileData.about;
       avatar.src = profileData.avatar;
       return profileID = profileData._id;
-    })
-    .then (renderInitialCards)
-    .catch(err => console.log(err))
-    
 }
 
-pasteProfileData();
 
+Promise.all([getProfileData(), getAllCards()])
+  .then(([profileData, cardsData]) => {
+    pasteProfileData(profileData);
+    renderInitialCards(profileID, cardsData);
+    //Здесь устанавливаем данные пользователя и рисуем карточки
+    })
+  .catch(err => console.log(err))
 
 //Открытие попапа редактирования профиля
 editButton.addEventListener('click', openProfilePopUp);
@@ -123,7 +99,7 @@ function handleFormSubmitMesto(evt) {
     link: linkInput.value
     })
     .then(cardData => {
-      cardContainer.prepend(addCards(cardData, profileID));
+      cardContainer.prepend(createCard(cardData, profileID));
       closePopup(popUpMesto);
       evt.target.reset();
     })

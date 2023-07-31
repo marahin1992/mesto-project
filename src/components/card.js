@@ -2,41 +2,41 @@
 import {openPopUpImage} from './modal.js'
 import { deleteCard, addLike, deleteLike } from './api.js';
 
-function handleClickDelete(el, cardElement) {
-  deleteCard(el)
+function handleClickDelete(cardData, cardElement) {
+  deleteCard(cardData)
   .then(cardElement.remove());
 }
 
-function renderDeleteButton(el, profileID, cardDelete, cardElement) {
-  if (el.owner._id === profileID) {
+function renderDeleteButton(cardData, profileID, cardDelete, cardElement) {
+  if (cardData.owner._id === profileID) {
     cardDelete.classList.add('card__delete_enabled');
-    cardDelete.addEventListener('click', () => handleClickDelete(el, cardElement));
+    cardDelete.addEventListener('click', () => handleClickDelete(cardData, cardElement));
   }
 }
 
-function renderLikeCard(el, cardLike, profileID) {
-  if (el.likes.some(like => like._id === profileID)) {
+function renderLikeCard(cardData, cardLike, profileID) {
+  if (cardData.likes.some(like => like._id === profileID)) {
     cardLike.classList.add('card__like_liked')
   }
 }
 
-function renderCardLikeContainer(data, el, cardLike, cardLikeCounter) {
+function renderCardLikeContainer(data, cardData, cardLike, cardLikeCounter) {
   cardLikeCounter.textContent = data.likes.length;
-  el.likes = data.likes;
+  cardData.likes = data.likes;
   cardLike.classList.toggle('card__like_liked');
 }
 
-function handleClikcLike(el, profileID, cardLikeCounter, cardLike) {
-  if (el.likes.some(like =>  like._id === profileID)) {
-    deleteLike(el)
-    .then(data => renderCardLikeContainer(data, el, cardLike, cardLikeCounter))
+function handleClickLike(cardData, profileID, cardLikeCounter, cardLike) {
+  if (cardData.likes.some(like =>  like._id === profileID)) {
+    deleteLike(cardData)
+    .then(data => renderCardLikeContainer(data, cardData, cardLike, cardLikeCounter))
   } else {
-    addLike(el)
-    .then(data => renderCardLikeContainer(data, el, cardLike, cardLikeCounter))
+    addLike(cardData)
+    .then(data => renderCardLikeContainer(data, cardData, cardLike, cardLikeCounter))
   }
 }
 
-export function addCards(el, profileID) {
+export function createCard(cardData, profileID) {
   const cardTemplate = document.querySelector('#card-template').content;
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
   const cardImage = cardElement.querySelector('.card__image');
@@ -45,20 +45,20 @@ export function addCards(el, profileID) {
   const cardLike = cardElement.querySelector('.card__like');
 
 
-  cardElement.dataset.id = el._id
-  cardImage.src = el.link;
-  cardElement.querySelector('.card__title').textContent = el.name;
-  cardImage.alt = 'Фотография ' + el.name;
-  cardLikeCounter.textContent = el.likes.length;
+  cardElement.dataset.id = cardData._id
+  cardImage.src = cardData.link;
+  cardElement.querySelector('.card__title').textContent = cardData.name;
+  cardImage.alt = 'Фотография ' + cardData.name;
+  cardLikeCounter.textContent = cardData.likes.length;
 
 
-  renderDeleteButton(el, profileID, cardDelete, cardElement);
-  renderLikeCard(el, cardLike, profileID);
+  renderDeleteButton(cardData, profileID, cardDelete, cardElement);
+  renderLikeCard(cardData, cardLike, profileID);
   
-  cardLike.addEventListener('click', () => handleClikcLike(el, profileID, cardLikeCounter, cardLike));
+  cardLike.addEventListener('click', () => handleClickLike(cardData, profileID, cardLikeCounter, cardLike));
 
   cardImage.addEventListener('click', () => {
-    openPopUpImage(el);
+    openPopUpImage(cardData);
   });
   return cardElement;
 }
