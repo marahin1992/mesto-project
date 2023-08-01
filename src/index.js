@@ -33,9 +33,11 @@ import {
 } from './components/modal.js';
 
 import { closePopup, setStatusButton } from './components/utils.js'
-import { getProfileData, getAllCards, editProfileData, addCard, editProfileAvatar } from './components/api';
+import { config, Api } from './components/api';
 //Создаём глобальную переменную с ID профиля
 let profileID;
+
+export const api = new Api(config);
 
 //Добавление карточек с сервера
 function renderInitialCards(profileID, cardsData) {
@@ -54,7 +56,7 @@ function pasteProfileData(profileData) {
 }
 
 
-Promise.all([getProfileData(), getAllCards()])
+Promise.all([api.getProfileData(), api.getAllCards()])
   .then(([profileData, cardsData]) => {
     pasteProfileData(profileData);
     renderInitialCards(profileID, cardsData);
@@ -72,7 +74,7 @@ addButton.addEventListener('click', openPopUpMesto);
 function handleFormSubmitProfile(evt) {
     evt.preventDefault();
     setStatusButton({formElement: evt.target, text: 'Сохранение...', disabled: true});
-    editProfileData({
+    api.editProfileData({
       name: nameInput.value,
       about: jobInput.value})
       .then((profileData) => {
@@ -94,7 +96,7 @@ formElementProfile.addEventListener('submit', handleFormSubmitProfile);
 function handleFormSubmitMesto(evt) {
   evt.preventDefault();
   setStatusButton({formElement: evt.target, text: 'Сохранение...', disabled: true});
-  addCard({
+  api.addCard({
     name: titleInput.value,
     link: linkInput.value
     })
@@ -118,7 +120,7 @@ avatarContainer.addEventListener('click', openPopUpAvatar)
 function handleFormSubmitAvatar(evt) {
   evt.preventDefault();
   setStatusButton({formElement: evt.target, text: 'Сохранение...', disabled: true});
-  editProfileAvatar({avatar: avatarInput.value})
+  api.editProfileAvatar({avatar: avatarInput.value})
   .then(data => {
     avatar.src = data.avatar;
     closePopup(popUpAvatar);

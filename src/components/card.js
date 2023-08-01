@@ -1,9 +1,9 @@
 //Функция добавления карточки
 import {openPopUpImage} from './modal.js'
-import { deleteCard, addLike, deleteLike } from './api.js';
+import { api } from '../index.js';
 
 function handleClickDelete(cardData, cardElement) {
-  deleteCard(cardData)
+  api.deleteCard(cardData)
   .then(cardElement.remove());
 }
 
@@ -28,10 +28,10 @@ function renderCardLikeContainer(data, cardData, cardLike, cardLikeCounter) {
 
 function handleClickLike(cardData, profileID, cardLikeCounter, cardLike) {
   if (cardData.likes.some(like =>  like._id === profileID)) {
-    deleteLike(cardData)
+    api.deleteLike(cardData)
     .then(data => renderCardLikeContainer(data, cardData, cardLike, cardLikeCounter))
   } else {
-    addLike(cardData)
+    api.addLike(cardData)
     .then(data => renderCardLikeContainer(data, cardData, cardLike, cardLikeCounter))
   }
 }

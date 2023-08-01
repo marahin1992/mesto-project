@@ -1,4 +1,4 @@
-const config = {
+export const config = {
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-26',
   headers: {
     'content-type': 'application/json',
@@ -6,75 +6,104 @@ const config = {
   }
 }
 
-//проверяем на ошибку
-function onResponse(res) {
+
+export class Api {
+  constructor(config) {
+    this.baseUrl = config.baseUrl;
+    this.headers = config.headers;
+  }
+
+  //проверяем на ошибку
+onResponse(res) {
   return res.ok ? res.json() : res.json().then((data) => Promise.reject(data));
 }
 
 //получение данных профиля
-export function getProfileData() {
-  return fetch(`${config.baseUrl}/users/me`, {
-    headers: config.headers
+getProfileData() {
+  return fetch(`${this.baseUrl}/users/me`, {
+    headers: this.headers
   })
-    .then(onResponse)    
+    .then(this.onResponse)    
 }
 
 //получение данных карточек
-export function getAllCards() {
-  return fetch(`${config.baseUrl}/cards`, {
-    headers: config.headers
-  }).then(onResponse)
+getAllCards() {
+  return fetch(`${this.baseUrl}/cards`, {
+    headers: this.headers
+  }).then(this.onResponse)
 }
 
 //редактирование профиля на сервере
-export function editProfileData(body) {
-  return fetch(`${config.baseUrl}/users/me`, {
+editProfileData(body) {
+  return fetch(`${this.baseUrl}/users/me`, {
     method: 'PATCH',
-    headers: config.headers,
+    headers: this.headers,
     body: JSON.stringify(body)
   })
-    .then(onResponse)    
+    .then(this.onResponse)    
 }
 
-export function addCard(body) {
-  return fetch(`${config.baseUrl}/cards`, {
+addCard(body) {
+  return fetch(`${this.baseUrl}/cards`, {
     method: 'POST',
-    headers: config.headers,
+    headers: this.headers,
     body: JSON.stringify(body)
   })
-    .then(onResponse) 
+    .then(this.onResponse) 
 }
 
-export function deleteCard(card) {
-  return fetch(`${config.baseUrl}/cards/${card._id}`, {
+deleteCard(card) {
+  return fetch(`${this.baseUrl}/cards/${card._id}`, {
     method: 'DELETE',
-    headers: config.headers,
+    headers: this.headers,
   })
-    .then(onResponse) 
+    .then(this.onResponse) 
 }
 
-export function addLike(card) {
-  return fetch(`${config.baseUrl}/cards/likes/${card._id}`, {
+addLike(card) {
+  return fetch(`${this.baseUrl}/cards/likes/${card._id}`, {
     method: 'PUT',
-    headers: config.headers,
+    headers: this.headers,
   })
-    .then(onResponse)
+    .then(this.onResponse)
 } 
 
-export function deleteLike(card) {
-  return fetch(`${config.baseUrl}/cards/likes/${card._id}`, {
+deleteLike(card) {
+  return fetch(`${this.baseUrl}/cards/likes/${card._id}`, {
     method: 'DELETE',
-    headers: config.headers,
+    headers: this.headers,
   })
-    .then(onResponse)
+    .then(this.onResponse)
 }
 
-export function editProfileAvatar(body) {
-  return fetch(`${config.baseUrl}/users/me/avatar`, {
+editProfileAvatar(body) {
+  return fetch(`${this.baseUrl}/users/me/avatar`, {
     method: 'PATCH',
-    headers: config.headers,
+    headers: this.headers,
     body: JSON.stringify(body)
   })
-    .then(onResponse)    
+    .then(this.onResponse)    
 }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
