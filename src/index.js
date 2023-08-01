@@ -34,15 +34,18 @@ import {
 
 import { closePopup, setStatusButton } from './components/utils.js'
 import { config, Api } from './components/api';
+import { Card } from './components/card.js';
 //Создаём глобальную переменную с ID профиля
 let profileID;
 
 export const api = new Api(config);
-
+//const card = new Card(); /!!!!/
 //Добавление карточек с сервера
 function renderInitialCards(profileID, cardsData) {
       cardsData.forEach(el => {
-        cardContainer.append(createCard(el, profileID));
+        const card = new Card(el, profileID, '#card-template');
+        //cardContainer.append(createCard(el, profileID));
+          cardContainer.append(card.createCard());
     })
 }
 
@@ -101,7 +104,8 @@ function handleFormSubmitMesto(evt) {
     link: linkInput.value
     })
     .then(cardData => {
-      cardContainer.prepend(createCard(cardData, profileID));
+      const card = new Card(cardData, profileID, '#card-template');
+      cardContainer.prepend(card.createCard());
       closePopup(popUpMesto);
       evt.target.reset();
     })
