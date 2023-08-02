@@ -22,9 +22,7 @@ import { openPopup } from './utils.js';
 
 //Функция открытия попапа профиля
 export function openProfilePopUp() {  
-  //Заполняем поля ввода имеющимися данными
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileJob.textContent;
+  
   //скрываем ошибку инпутов
   //hideInputError(formElementProfile, nameInput, validateSettings);
   //hideInputError(formElementProfile, jobInput, validateSettings);
