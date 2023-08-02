@@ -35,6 +35,7 @@ import {
 import { closePopup, setStatusButton } from './components/utils.js'
 import { config, Api } from './components/api';
 import { Card } from './components/card.js';
+import Section from './components/Section.js';
 //Создаём глобальную переменную с ID профиля
 let profileID;
 
@@ -62,7 +63,17 @@ function pasteProfileData(profileData) {
 Promise.all([api.getProfileData(), api.getAllCards()])
   .then(([profileData, cardsData]) => {
     pasteProfileData(profileData);
-    renderInitialCards(profileID, cardsData);
+    const cardInsertAppend = new Section({
+      items: cardsData, 
+      renderer: (item) => {
+        const card = new Card(item, profileID, '#card-template');
+        const cardElement = card.createCard();
+        cardInsertAppend.addItem(cardElement, 'append');
+      }},
+      '.cards' 
+      )
+      cardInsertAppend.renderItems();
+    //renderInitialCards(profileID, cardsData);
     //Здесь устанавливаем данные пользователя и рисуем карточки
     })
   .catch(err => console.log(err))
@@ -104,8 +115,18 @@ function handleFormSubmitMesto(evt) {
     link: linkInput.value
     })
     .then(cardData => {
-      const card = new Card(cardData, profileID, '#card-template');
-      cardContainer.prepend(card.createCard());
+        const cardInsertPrepend = new Section({
+        items: [cardData], 
+        renderer: (item) => {
+          const card = new Card(item, profileID, '#card-template');
+          const cardElement = card.createCard();
+          cardInsertPrepend.addItem(cardElement, 'prepend');
+        }},
+        '.cards' 
+        )
+        cardInsertPrepend.renderItems();
+      //const card = new Card(cardData, profileID, '#card-template');
+      //cardContainer.prepend(card.createCard());
       closePopup(popUpMesto);
       evt.target.reset();
     })
