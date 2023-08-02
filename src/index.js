@@ -55,8 +55,11 @@ function pasteProfileData(profileData) {
       profileName.textContent = profileData.name;
       profileJob.textContent = profileData.about;
       avatar.src = profileData.avatar;
+      nameInput.value = profileData.name;
+      jobInput.value = profileData.about;
       return profileID = profileData._id;
-}
+} 
+  
 
 
 Promise.all([api.getProfileData(), api.getAllCards()])
