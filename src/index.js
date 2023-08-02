@@ -24,7 +24,7 @@ import {
 
 import { createCard } from './components/card.js';
 
-import { enableValidation } from './components/validate.js';
+import { FormValidator } from './components/validate.js';
 
 import {
   openProfilePopUp,
@@ -138,6 +138,12 @@ function handleFormSubmitAvatar(evt) {
 
 formElementAvatar.addEventListener('submit', handleFormSubmitAvatar);
 //Организуем вылидацию форм
-enableValidation(validateSettings);
+const formList = Array.from(document.querySelectorAll(validateSettings.formSelector));
+
+    formList.forEach((formElement) => {
+      const formValidation = new FormValidator(validateSettings, formElement)
+      formValidation.enableValidation();
+    });
+
 
 

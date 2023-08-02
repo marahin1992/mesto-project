@@ -13,7 +13,7 @@ import {
   formElementProfile,
 } from './constants.js'
 
-import { hideInputError } from './validate.js'
+//import { hideInputError } from './validate.js'
 
 import { openPopup } from './utils.js';
 
@@ -26,8 +26,8 @@ export function openProfilePopUp() {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
   //скрываем ошибку инпутов
-  hideInputError(formElementProfile, nameInput, validateSettings);
-  hideInputError(formElementProfile, jobInput, validateSettings);
+  //hideInputError(formElementProfile, nameInput, validateSettings);
+  //hideInputError(formElementProfile, jobInput, validateSettings);
   //Вызываем функцию открытия попапа
   openPopup(popUpProfile);
 }
