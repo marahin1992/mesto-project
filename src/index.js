@@ -44,6 +44,10 @@ const profileEditPopup = new PopupWithForm('.popup_type_profile', handleFormSubm
 profileEditPopup.setEventListeners();
 const cardEditPopup = new PopupWithForm('.popup_type_mesto', handleFormSubmitMesto);
 cardEditPopup.setEventListeners();
+const avatarEditPopup = new PopupWithForm('.popup_type_avatar', handleFormSubmitAvatar);
+avatarEditPopup.setEventListeners();
+const imagePopup = new PopupWithImage('.popup_type_image');
+
 
 
 
@@ -146,16 +150,18 @@ function handleFormSubmitMesto(evt, inputValues) {
 //formElementMesto.addEventListener('submit', handleFormSubmitMesto);
 
 //Открытие модального окна редактирования аватара
-avatarContainer.addEventListener('click', openPopUpAvatar)
+avatarContainer.addEventListener('click', () => {
+  avatarEditPopup.open();
+});
 
 //Обновление аватара из формы
-function handleFormSubmitAvatar(evt) {
+function handleFormSubmitAvatar(evt, inputValues) {
   evt.preventDefault();
   setStatusButton({formElement: evt.target, text: 'Сохранение...', disabled: true});
-  api.editProfileAvatar({avatar: avatarInput.value})
+  api.editProfileAvatar(inputValues)
   .then(data => {
     avatar.src = data.avatar;
-    closePopup(popUpAvatar);
+    avatarEditPopup.close();
   })
   .catch(err => console.log(err))
   .finally(() => {
@@ -163,7 +169,7 @@ function handleFormSubmitAvatar(evt) {
   }) 
 }
 
-formElementAvatar.addEventListener('submit', handleFormSubmitAvatar);
+//formElementAvatar.addEventListener('submit', handleFormSubmitAvatar);
 //Организуем вылидацию форм
 const formList = Array.from(document.querySelectorAll(validateSettings.formSelector));
 
