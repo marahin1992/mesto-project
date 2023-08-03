@@ -36,8 +36,16 @@ import { closePopup, setStatusButton } from './components/utils.js'
 import { config, Api } from './components/api';
 import { Card } from './components/card.js';
 import Section from './components/Section.js';
+import { PopupWithForm } from './components/PopupWithForm';
+import { PopupWithImage } from './components/PopupWithImage';
 //Создаём глобальную переменную с ID профиля
 let profileID;
+const profileEditPopup = new PopupWithForm('.popup_type_profile', handleFormSubmitProfile);
+profileEditPopup.setEventListeners();
+const cardEditPopup = new PopupWithForm('.popup_type_mesto', handleFormSubmitMesto);
+cardEditPopup.setEventListeners();
+
+
 
 export const api = new Api(config);
 //const card = new Card(); /!!!!/
@@ -56,8 +64,6 @@ function pasteProfileData(profileData) {
       profileName.textContent = profileData.name;
       profileJob.textContent = profileData.about;
       avatar.src = profileData.avatar;
-      nameInput.value = profileData.name;
-      jobInput.value = profileData.about;
       return profileID = profileData._id;
 } 
   
@@ -82,23 +88,24 @@ Promise.all([api.getProfileData(), api.getAllCards()])
   .catch(err => console.log(err))
 
 //Открытие попапа редактирования профиля
-editButton.addEventListener('click', openProfilePopUp);
+editButton.addEventListener('click', () => {
+  profileEditPopup.open();
+});
 
 //Открытие попапа добавления места
-addButton.addEventListener('click', openPopUpMesto);
+addButton.addEventListener('click', () => {
+  cardEditPopup.open();
+});
 
 //Функция редактирование профиля
-function handleFormSubmitProfile(evt) {
+function handleFormSubmitProfile(evt, inputValues) {
     evt.preventDefault();
-    setStatusButton({formElement: evt.target, text: 'Сохранение...', disabled: true});
-    api.editProfileData({
-      name: nameInput.value,
-      about: jobInput.value})
+    setStatusButton({formElement: evt.target, text: 'Сохранение...', disabled: true});    
+    api.editProfileData(inputValues)
       .then((profileData) => {
         profileName.textContent = profileData.name;
         profileJob.textContent = profileData.about;
-        closePopup(popUpProfile);
-        evt.target.reset();
+        profileEditPopup.close();
       })
       .catch(err => console.log(err))
       .finally(() => {
@@ -107,16 +114,13 @@ function handleFormSubmitProfile(evt) {
     
 }
 //Обаботчик события редактирования профиля
-formElementProfile.addEventListener('submit', handleFormSubmitProfile); 
+//formElementProfile.addEventListener('submit', handleFormSubmitProfile); 
 
 //Функция добавления карточки из формы
-function handleFormSubmitMesto(evt) {
+function handleFormSubmitMesto(evt, inputValues) {
   evt.preventDefault();
   setStatusButton({formElement: evt.target, text: 'Сохранение...', disabled: true});
-  api.addCard({
-    name: titleInput.value,
-    link: linkInput.value
-    })
+  api.addCard(inputValues)
     .then(cardData => {
         const cardInsertPrepend = new Section({
         items: [cardData], 
@@ -128,10 +132,10 @@ function handleFormSubmitMesto(evt) {
         '.cards' 
         )
         cardInsertPrepend.renderItems();
+        cardEditPopup.close();
       //const card = new Card(cardData, profileID, '#card-template');
       //cardContainer.prepend(card.createCard());
-      closePopup(popUpMesto);
-      evt.target.reset();
+      //closePopup(popUpMesto);
     })
     .catch(err => console.log(err))
     .finally(() => {
@@ -139,7 +143,7 @@ function handleFormSubmitMesto(evt) {
     }) 
 }
 //Отправка карточки из формы
-formElementMesto.addEventListener('submit', handleFormSubmitMesto);
+//formElementMesto.addEventListener('submit', handleFormSubmitMesto);
 
 //Открытие модального окна редактирования аватара
 avatarContainer.addEventListener('click', openPopUpAvatar)
@@ -152,7 +156,6 @@ function handleFormSubmitAvatar(evt) {
   .then(data => {
     avatar.src = data.avatar;
     closePopup(popUpAvatar);
-    evt.target.reset();
   })
   .catch(err => console.log(err))
   .finally(() => {
