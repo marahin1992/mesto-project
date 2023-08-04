@@ -2,18 +2,10 @@ import {
   popUpImage, 
   popImage, 
   popImageTitle, 
-  profileName, 
-  profileJob,
-  nameInput,
-  jobInput,
   popUpProfile,
   popUpMesto,
-  validateSettings,
   popUpAvatar,
-  formElementProfile,
 } from './constants.js'
-
-//import { hideInputError } from './validate.js'
 
 import { openPopup } from './utils.js';
 
@@ -22,11 +14,6 @@ import { openPopup } from './utils.js';
 
 //Функция открытия попапа профиля
 export function openProfilePopUp() {  
-  
-  //скрываем ошибку инпутов
-  //hideInputError(formElementProfile, nameInput, validateSettings);
-  //hideInputError(formElementProfile, jobInput, validateSettings);
-  //Вызываем функцию открытия попапа
   openPopup(popUpProfile);
 }
 
