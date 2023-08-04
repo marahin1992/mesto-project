@@ -14,6 +14,10 @@ import {
   formElementProfile,
   nameInput,
   jobInput,
+
+  nameInp,
+  jobInp,
+
   popUpMesto,
   formElementMesto,
   titleInput,
@@ -38,6 +42,7 @@ import { Card } from './components/card.js';
 import Section from './components/Section.js';
 import { PopupWithForm } from './components/PopupWithForm';
 import { PopupWithImage } from './components/PopupWithImage';
+import UserInfo from './components/UserInfo';
 //Создаём глобальную переменную с ID профиля
 let profileID;
 const profileEditPopup = new PopupWithForm('.popup_type_profile', handleFormSubmitProfile);
@@ -47,7 +52,7 @@ cardEditPopup.setEventListeners();
 const avatarEditPopup = new PopupWithForm('.popup_type_avatar', handleFormSubmitAvatar);
 avatarEditPopup.setEventListeners();
 const imagePopup = new PopupWithImage('.popup_type_image');
-
+const userInfo = new UserInfo({name:'.profile__name', about: '.profile__status'})
 
 
 
@@ -89,6 +94,11 @@ Promise.all([api.getProfileData(), api.getAllCards()])
 
 //Открытие попапа редактирования профиля
 editButton.addEventListener('click', () => {
+  const data = userInfo.getUserInfo();
+  nameInp.value = data.name;
+  jobInp.value = data.about;
+  //console.log(nameInp);
+  //console.log(data)
   profileEditPopup.open();
 });
 
@@ -103,8 +113,7 @@ function handleFormSubmitProfile(evt, inputValues) {
     setStatusButton({formElement: evt.target, text: 'Сохранение...', disabled: true});    
     api.editProfileData(inputValues)
       .then((profileData) => {
-        profileName.textContent = profileData.name;
-        profileJob.textContent = profileData.about;
+        userInfo.setUserInfo(profileData);
         profileEditPopup.close();
       })
       .catch(err => console.log(err))
@@ -176,3 +185,4 @@ const formList = Array.from(document.querySelectorAll(validateSettings.formSelec
 
 
 
+    userInfo.getUserInfo()

@@ -16,8 +16,13 @@ export const avatarInput = formElementAvatar.querySelector('input[name="avatarli
 //Константы попапа редактирования профиля
 export const popUpProfile = document.querySelector('.popup_type_profile');
 export const formElementProfile = document.forms["profile-form"];
+//console.log(formElementProfile);
 export const nameInput = formElementProfile.querySelector('input[name="profilename"]');
+export const nameInp = formElementProfile.querySelector('#name-input')
+//console.log(nameInp)
 export const jobInput = formElementProfile.querySelector('input[name="profilejob"]');
+export const jobInp = formElementProfile.querySelector('#job-input');
+//console.log(jobInp)
 //Константы попапа добавления места
 export const popUpMesto = document.querySelector('.popup_type_mesto');
 export const formElementMesto = document.forms["card-form"];
