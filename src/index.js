@@ -50,8 +50,6 @@ function renderInitialCards(profileID, cardsData) {
     })
 }
 
-
-
 function pasteProfileData(profileData) {
       profileName.textContent = profileData.name;
       profileJob.textContent = profileData.about;
@@ -61,8 +59,6 @@ function pasteProfileData(profileData) {
       return profileID = profileData._id;
 } 
   
-
-
 Promise.all([api.getProfileData(), api.getAllCards()])
   .then(([profileData, cardsData]) => {
     pasteProfileData(profileData);
