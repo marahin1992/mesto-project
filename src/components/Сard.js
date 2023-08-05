@@ -1,12 +1,11 @@
-//Функция добавления карточки
-import { openPopUpImage } from './modal.js'
 import { api } from '../index.js';
 
 export class Card {
-  constructor(data, profileID, selector) {
+  constructor(data, profileID, selector, handleCardClick) {
     this.cardData = data;
     this.profileID = profileID;
     this.selector = selector;
+    this.handleCardClick = handleCardClick;
   }
 
    _handleClickDelete(cardElement) {
@@ -63,7 +62,7 @@ export class Card {
     cardLike.addEventListener('click', () => this._handleClickLike(cardLikeCounter, cardLike));
 
     cardImage.addEventListener('click', () => {
-      openPopUpImage(this.cardData);
+      this.handleCardClick();
     });
     return cardElement;
   }

@@ -7,38 +7,16 @@ import {
   avatar,
   avatarContainer,
   addButton,
-  popUpAvatar,
-  formElementAvatar,
-  avatarInput,
-  popUpProfile,
-  formElementProfile,
-  nameInput,
-  jobInput,
-
   nameInp,
   jobInp,
-
-  popUpMesto,
-  formElementMesto,
-  titleInput,
-  linkInput,
-  cardContainer,
   validateSettings,
 } from './components/constants.js'
 
-import { createCard } from './components/card.js';
+import { FormValidator } from './components/FormValidator.js';
 
-import { FormValidator } from './components/validate.js';
-
-import {
-  openProfilePopUp,
-  openPopUpMesto,
-  openPopUpAvatar,
-} from './components/modal.js';
-
-import { closePopup, setStatusButton } from './components/utils.js'
-import { config, Api } from './components/api';
-import { Card } from './components/card.js';
+import { setStatusButton } from './components/utils.js'
+import { config, Api } from './components/Api';
+import { Card } from './components/Сard.js';
 import Section from './components/Section.js';
 import { PopupWithForm } from './components/PopupWithForm';
 import { PopupWithImage } from './components/PopupWithImage';
@@ -52,20 +30,12 @@ cardEditPopup.setEventListeners();
 const avatarEditPopup = new PopupWithForm('.popup_type_avatar', handleFormSubmitAvatar);
 avatarEditPopup.setEventListeners();
 const imagePopup = new PopupWithImage('.popup_type_image');
+imagePopup.setEventListeners();
 const userInfo = new UserInfo({name:'.profile__name', about: '.profile__status'})
 
 
 
 export const api = new Api(config);
-//const card = new Card(); /!!!!/
-//Добавление карточек с сервера
-function renderInitialCards(profileID, cardsData) {
-      cardsData.forEach(el => {
-        const card = new Card(el, profileID, '#card-template');
-        //cardContainer.append(createCard(el, profileID));
-          cardContainer.append(card.createCard());
-    })
-}
 
 function pasteProfileData(profileData) {
       profileName.textContent = profileData.name;
@@ -80,15 +50,15 @@ Promise.all([api.getProfileData(), api.getAllCards()])
     const cardInsertAppend = new Section({
       items: cardsData, 
       renderer: (item) => {
-        const card = new Card(item, profileID, '#card-template');
+        const card = new Card(item, profileID, '#card-template', () => {
+          imagePopup.open(item);
+        });
         const cardElement = card.createCard();
         cardInsertAppend.addItem(cardElement, 'append');
       }},
       '.cards' 
       )
       cardInsertAppend.renderItems();
-    //renderInitialCards(profileID, cardsData);
-    //Здесь устанавливаем данные пользователя и рисуем карточки
     })
   .catch(err => console.log(err))
 
@@ -97,8 +67,6 @@ editButton.addEventListener('click', () => {
   const data = userInfo.getUserInfo();
   nameInp.value = data.name;
   jobInp.value = data.about;
-  //console.log(nameInp);
-  //console.log(data)
   profileEditPopup.open();
 });
 
@@ -119,11 +87,8 @@ function handleFormSubmitProfile(evt, inputValues) {
       .catch(err => console.log(err))
       .finally(() => {
         setStatusButton({formElement: evt.target, text: 'Сохранить', disabled: false});
-      })     
-    
+      })      
 }
-//Обаботчик события редактирования профиля
-//formElementProfile.addEventListener('submit', handleFormSubmitProfile); 
 
 //Функция добавления карточки из формы
 function handleFormSubmitMesto(evt, inputValues) {
@@ -134,7 +99,9 @@ function handleFormSubmitMesto(evt, inputValues) {
         const cardInsertPrepend = new Section({
         items: [cardData], 
         renderer: (item) => {
-          const card = new Card(item, profileID, '#card-template');
+          const card = new Card(item, profileID, '#card-template', () => {
+            imagePopup.open(item);
+          });
           const cardElement = card.createCard();
           cardInsertPrepend.addItem(cardElement, 'prepend');
         }},
@@ -142,17 +109,12 @@ function handleFormSubmitMesto(evt, inputValues) {
         )
         cardInsertPrepend.renderItems();
         cardEditPopup.close();
-      //const card = new Card(cardData, profileID, '#card-template');
-      //cardContainer.prepend(card.createCard());
-      //closePopup(popUpMesto);
     })
     .catch(err => console.log(err))
     .finally(() => {
     setStatusButton({formElement: evt.target, text: 'Создать', disabled: false});
     }) 
 }
-//Отправка карточки из формы
-//formElementMesto.addEventListener('submit', handleFormSubmitMesto);
 
 //Открытие модального окна редактирования аватара
 avatarContainer.addEventListener('click', () => {
@@ -174,15 +136,14 @@ function handleFormSubmitAvatar(evt, inputValues) {
   }) 
 }
 
-//formElementAvatar.addEventListener('submit', handleFormSubmitAvatar);
 //Организуем вылидацию форм
 const formList = Array.from(document.querySelectorAll(validateSettings.formSelector));
 
-    formList.forEach((formElement) => {
-      const formValidation = new FormValidator(validateSettings, formElement)
-      formValidation.enableValidation();
-    });
+formList.forEach((formElement) => {
+  const formValidation = new FormValidator(validateSettings, formElement)
+  formValidation.enableValidation();
+});
 
 
 
-    userInfo.getUserInfo()
+userInfo.getUserInfo()

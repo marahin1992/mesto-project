@@ -5,17 +5,15 @@ import {
 import Popup from './Popup.js';
 
 export class PopupWithImage extends Popup {
-  constructor(data, selector) {
+  constructor(selector) {
     super(selector);
-    this.link = data.link;
-    this.name = data.name;
 
   }
 
-  open() {
+  open(item) {
     super.open();
-    popImage.src = this.link;
-    popImageTitle.textContent = this.name;
-    popImage.alt = 'Фотография ' + this.name;
+    popImage.src = item.link;
+    popImageTitle.textContent = item.name;
+    popImage.alt = 'Фотография ' + item.name;
   }
 }

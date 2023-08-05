@@ -8,12 +8,9 @@ class UserInfo {
         const dataProfile = {};
 
         const name = document.querySelector(this._profileName).textContent;
-        //console.log(this._profileName)
         const about = document.querySelector(this._profileJob).textContent;
         dataProfile.name = name;
         dataProfile.about = about;
-
-        //console.log(dataProfile)
 
         return (dataProfile);
 
