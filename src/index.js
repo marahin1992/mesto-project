@@ -29,7 +29,7 @@ const cardEditPopup = new PopupWithForm('.popup_type_mesto', handleFormSubmitMes
 cardEditPopup.setEventListeners();
 const avatarEditPopup = new PopupWithForm('.popup_type_avatar', handleFormSubmitAvatar);
 avatarEditPopup.setEventListeners();
-const imagePopup = new PopupWithImage('.popup_type_image');
+const imagePopup = new PopupWithImage('.popup_type_image', '.popup__image', '.popup__image-title');
 imagePopup.setEventListeners();
 const userInfo = new UserInfo({name:'.profile__name', about: '.profile__status'})
 
@@ -43,22 +43,48 @@ function pasteProfileData(profileData) {
       avatar.src = profileData.avatar;
       return profileID = profileData._id;
 } 
+
+function returnNewCard(item) {
+  const card = new Card(item, profileID, '#card-template', () => {
+    imagePopup.open(item);
+  }, handleClickCardDelete, handleClickLike);
+  return card.createCard();
+}
+
+function renderCards(cardsData) {
+
+}
+
+function handleClickCardDelete(cardElement) {
+  api.deleteCard(this.cardData)
+  .then(cardElement.remove())
+  .catch(err => console.log(err))  
+}
+
+function handleClickLike(cardLikeCounter, cardLike) {
+  if (this.cardData.likes.some(like =>  like._id === this.profileID)) {
+    api.deleteLike(this.cardData)
+    .then(data => this.renderCardLikeContainer(data, cardLike, cardLikeCounter))
+    .catch(err => console.log(err))
+  } else {
+    api.addLike(this.cardData)
+    .then(data => this.renderCardLikeContainer(data, cardLike, cardLikeCounter))
+    .catch(err => console.log(err))
+  }
+}
   
 Promise.all([api.getProfileData(), api.getAllCards()])
   .then(([profileData, cardsData]) => {
     pasteProfileData(profileData);
     const cardInsertAppend = new Section({
       items: cardsData, 
-      renderer: (item) => {
-        const card = new Card(item, profileID, '#card-template', () => {
-          imagePopup.open(item);
-        });
-        const cardElement = card.createCard();
-        cardInsertAppend.addItem(cardElement, 'append');
+      renderer: (item, method) => {
+        const cardElement = returnNewCard(item);
+        cardInsertAppend.addItem(cardElement, method);
       }},
       '.cards' 
       )
-      cardInsertAppend.renderItems();
+      cardInsertAppend.renderItems('append');
     })
   .catch(err => console.log(err))
 
@@ -98,16 +124,13 @@ function handleFormSubmitMesto(evt, inputValues) {
     .then(cardData => {
         const cardInsertPrepend = new Section({
         items: [cardData], 
-        renderer: (item) => {
-          const card = new Card(item, profileID, '#card-template', () => {
-            imagePopup.open(item);
-          });
-          const cardElement = card.createCard();
-          cardInsertPrepend.addItem(cardElement, 'prepend');
+        renderer: (item, method) => {
+          const cardElement = returnNewCard(item);
+          cardInsertPrepend.addItem(cardElement, method);
         }},
         '.cards' 
         )
-        cardInsertPrepend.renderItems();
+        cardInsertPrepend.renderItems('prepend');
         cardEditPopup.close();
     })
     .catch(err => console.log(err))

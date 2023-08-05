@@ -1,6 +1,3 @@
-//Константы попапа картинки
-export const popImage = document.querySelector('.popup__image');
-export const popImageTitle = document.querySelector('.popup__image-title');
 //Константы профиля
 export const profile = document.querySelector('.profile');
 export const editButton = profile.querySelector('.profile__edit-button');

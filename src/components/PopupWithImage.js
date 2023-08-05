@@ -1,19 +1,16 @@
-import {
-  popImage,
-  popImageTitle,
-} from './constants.js';
 import Popup from './Popup.js';
 
 export class PopupWithImage extends Popup {
-  constructor(selector) {
+  constructor(selector, popImage, popImageTitle) {
     super(selector);
-
+    this.popImage = document.querySelector(popImage);
+    this.popImageTitle = document.querySelector(popImageTitle);
   }
 
   open(item) {
     super.open();
-    popImage.src = item.link;
-    popImageTitle.textContent = item.name;
-    popImage.alt = 'Фотография ' + item.name;
+    this.popImage.src = item.link;
+    this.popImageTitle.textContent = item.name;
+    this.popImage.alt = 'Фотография ' + item.name;
   }
 }

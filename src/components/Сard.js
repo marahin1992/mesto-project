@@ -1,17 +1,14 @@
-import { api } from '../index.js';
-
 export class Card {
-  constructor(data, profileID, selector, handleCardClick) {
+  constructor(data, profileID, selector, handleCardClick, handleClickCardDelete, handleClickLike) {
     this.cardData = data;
     this.profileID = profileID;
     this.selector = selector;
     this.handleCardClick = handleCardClick;
+    this._handleClickDelete = handleClickCardDelete;
+    this._handleClickLike = handleClickLike;
   }
 
-   _handleClickDelete(cardElement) {
-    api.deleteCard(this.cardData)
-    .then(cardElement.remove());  
-  }
+   
 
    _renderDeleteButton(cardDelete, cardElement) {
     if (this.cardData.owner._id === this.profileID) {
@@ -26,21 +23,13 @@ export class Card {
     }
   }
 
-   _renderCardLikeContainer(data, cardLike, cardLikeCounter) {
+   renderCardLikeContainer(data, cardLike, cardLikeCounter) {
     cardLikeCounter.textContent = data.likes.length;
     this.cardData.likes = data.likes;
     cardLike.classList.toggle('card__like_liked');
   }
 
-   _handleClickLike(cardLikeCounter, cardLike) {
-    if (this.cardData.likes.some(like =>  like._id === this.profileID)) {
-      api.deleteLike(this.cardData)
-      .then(data => this._renderCardLikeContainer(data, cardLike, cardLikeCounter))
-    } else {
-      api.addLike(this.cardData)
-      .then(data => this._renderCardLikeContainer(data, cardLike, cardLikeCounter))
-    }
-  }
+
 
     createCard() {
     const cardTemplate = document.querySelector(this.selector).content;
