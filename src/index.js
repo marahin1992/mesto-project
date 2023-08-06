@@ -56,9 +56,7 @@ function returnNewCard(item) {
   return card.createCard();
 }
 
-function renderCards(cardsData) {
 
-}
 
 function handleClickCardDelete(cardElement) {
   api.deleteCard(this.cardData)
@@ -81,8 +79,8 @@ function handleClickLike(cardLikeCounter, cardLike) {
 Promise.all([api.getProfileData(), api.getAllCards()])
   .then(([profileData, cardsData]) => {
     pasteProfileData(profileData);
-      section.renderItems(cardsData, 'append');
-    })
+    section.renderItems(cardsData, 'append');
+  })
   .catch(err => console.log(err))
 
 //Открытие попапа редактирования профиля

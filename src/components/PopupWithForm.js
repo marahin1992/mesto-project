@@ -29,7 +29,7 @@ export class PopupWithForm extends Popup {
 
   close() {
     super.close();
-    this.selector.querySelector('.popup__form').reset();
+    this.form.reset();
   }
 
 
