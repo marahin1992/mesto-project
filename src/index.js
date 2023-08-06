@@ -32,8 +32,13 @@ avatarEditPopup.setEventListeners();
 const imagePopup = new PopupWithImage('.popup_type_image', '.popup__image', '.popup__image-title');
 imagePopup.setEventListeners();
 const userInfo = new UserInfo({name:'.profile__name', about: '.profile__status'})
-
-
+const section = new Section({
+  items: '',
+  renderer: (item, method) => {
+    const cardElement = returnNewCard(item);
+    section.addItem(cardElement, method);
+    }},
+    '.cards');
 
 export const api = new Api(config);
 
@@ -76,15 +81,7 @@ function handleClickLike(cardLikeCounter, cardLike) {
 Promise.all([api.getProfileData(), api.getAllCards()])
   .then(([profileData, cardsData]) => {
     pasteProfileData(profileData);
-    const cardInsertAppend = new Section({
-      items: cardsData, 
-      renderer: (item, method) => {
-        const cardElement = returnNewCard(item);
-        cardInsertAppend.addItem(cardElement, method);
-      }},
-      '.cards' 
-      )
-      cardInsertAppend.renderItems('append');
+      section.renderItems(cardsData, 'append');
     })
   .catch(err => console.log(err))
 
@@ -122,15 +119,7 @@ function handleFormSubmitMesto(evt, inputValues) {
   setStatusButton({formElement: evt.target, text: 'Сохранение...', disabled: true});
   api.addCard(inputValues)
     .then(cardData => {
-        const cardInsertPrepend = new Section({
-        items: [cardData], 
-        renderer: (item, method) => {
-          const cardElement = returnNewCard(item);
-          cardInsertPrepend.addItem(cardElement, method);
-        }},
-        '.cards' 
-        )
-        cardInsertPrepend.renderItems('prepend');
+        section.renderItems([cardData], 'prepend');
         cardEditPopup.close();
     })
     .catch(err => console.log(err))
