@@ -13,7 +13,7 @@ export class Card {
    _renderDeleteButton(cardDelete, cardElement) {
     if (this.cardData.owner._id === this.profileID) {
       cardDelete.classList.add('card__delete_enabled');
-      cardDelete.addEventListener('click', () => this._handleClickDelete(cardElement));
+      cardDelete.addEventListener('click', () => this._handleClickDelete(cardElement, this.removeCard));
     }
   }
 
@@ -29,7 +29,9 @@ export class Card {
     cardLike.classList.toggle('card__like_liked');
   }
 
-
+    removeCard(cardElement) {
+      cardElement.remove();
+    }
 
     createCard() {
     const cardTemplate = document.querySelector(this.selector).content;

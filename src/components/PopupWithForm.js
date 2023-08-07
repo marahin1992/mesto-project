@@ -5,8 +5,8 @@ export class PopupWithForm extends Popup {
     super(selector);
     this.callback = callback;
     this.callback = this.callback.bind(this);
-    this.collection = Array.from(this.selector.querySelectorAll('.popup__input'));
-    this.form = this.selector.querySelector('.popup__form');
+    this.collection = Array.from(this.element.querySelectorAll('.popup__input'));
+    this.form = this.element.querySelector('.popup__form');
 
   }
 
