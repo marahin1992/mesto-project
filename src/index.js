@@ -58,9 +58,9 @@ function returnNewCard(item) {
 
 
 
-function handleClickCardDelete(cardElement, removeCard) {
+function handleClickCardDelete() {
   api.deleteCard(this.cardData)
-  .then(removeCard(cardElement))
+  .then(() => this.removeCard())
   .catch(err => console.log(err))  
 }
 
