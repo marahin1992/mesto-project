@@ -1,26 +1,28 @@
 # Проект: Место
+Создатели: 
+  Стволов В.И. mr.stwolow@yandex.ru  https://github.com/cnaruto
+  Марахин А.В. marahin1992@ya.ru  https://github.com/marahin1992 
+
 
 ## Описание проекта
-Проект **Место** является третьим проетом в курсе. В этом проекте используется адаптивно-отзывчивая верстка, Grid и Fleks технологии, а также используются формы и input элементы.
+Проект **Место** это невероятный сайт. В этом проекте используется адаптивно-отзывчивая верстка, JavaScript классы, WebPack
 
 ### Используемые технологии:
+* JavaScript
 * HTML5
-* CSS3
-* Flexbox
-* Grid-layout
-* Адаптивная верстка
-* PixelPerfect
+* CSS3 (Flexbox, Grid-layout, Адаптивная верстка, PixelPerfect)
+* WebPack
 
 ## Требования:
 * HTML5
 * CSS3
+* JavaScript
+* WebPack
+* NodeJS
 
 
-**GITHUB**
+**GitHub Pages**
 
 * [Ссылка на проект в GitHub Pages](https://marahin1992.github.io/mesto-project/index.html)
 ____________________________________________________
 
-**Figma**
-
-* [Ссылка на макет в Figma](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1)
